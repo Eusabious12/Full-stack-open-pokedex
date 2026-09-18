@@ -31,7 +31,7 @@ const PokemonPage = ({ previous, next }) => {
       <div className="links">
         {previous && <Link to={`/pokemon/${previous.name}`}>Previous</Link>}
         <Link to="/">Home</Link>
-{next && <Link to={`/pokemon/${next.name}`}>Next</Link>}      </div>
+        {next && <Link to={`/pokemon/${next.name}`}>Next</Link>}      </div>
       <div className={`pokemon-page pokemon-type-${type.name}`}>
         <div className="pokemon-image" style={{ backgroundImage: `url(${pokemon.sprites.front_default})` }} />
         <div className="pokemon-info">
