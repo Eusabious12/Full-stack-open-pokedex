@@ -14,6 +14,18 @@ module.exports = [
     ]
   },
   js.configs.recommended,
+
+    {
+    files: ['jest.setup.js'],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+        ...globals.jest
+      }
+    }
+  },
+  
   {
     files: ['app.js'],
     languageOptions: {
