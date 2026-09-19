@@ -4,14 +4,14 @@ module.exports = defineConfig({
   testDir: './e2e-tests',
   timeout: 120 * 1000,
   use: {
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://localhost:5001',
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
   webServer: {
     command: 'npm run start-prod',
-    url: 'http://localhost:5000',
+    url: 'http://localhost:5001',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
