@@ -25,3 +25,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run e2e tests
         run: npm run test:e2e
+      - name: Deploy to Render
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        run: curl "$deploy_url"
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
