@@ -41,3 +41,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+      - name: Notify deploy success
+        if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message), '#skip') }}
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "A new version deployed to production"
+          description: "Deployed to https://full-stack-open-pokedex-maht.onrender.com/"
+          color: 0x00ff00
+      - name: Notify on failure
+        if: ${{ failure() }}
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "Build failed"
+          description: "Commit ${{ github.sha }} broke the build (author: ${{ github.actor }})"
+          color: 0xff0000
