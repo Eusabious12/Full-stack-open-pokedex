@@ -31,12 +31,12 @@ jobs:
       - name: Run e2e tests
         run: npm run test:e2e
       - name: Deploy to Render
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message), '#skip') }}
         run: curl "$deploy_url"
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message), '#skip') }}
         uses: anothrNick/github-tag-action@1.71.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
